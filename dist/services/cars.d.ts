@@ -21,14 +21,14 @@
 /// <reference types="mongoose/types/utility" />
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
-/// <reference types="mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
+import { Model } from "mongoose";
 import { CreateCarDTO } from "src/DTOS/cars/createCar";
-import { CarsService } from "src/services/cars";
-export declare class CarsController {
-    private carsService;
-    constructor(carsService: CarsService);
-    createCar(createCarDto: CreateCarDTO): Promise<import("mongoose").Document<unknown, {}, import("../schemas/cars").Cars> & import("../schemas/cars").Cars & {
+import { Cars } from "src/schemas/cars";
+export declare class CarsService {
+    private carsModel;
+    constructor(carsModel: Model<Cars>);
+    createCar(createCarDto: CreateCarDTO): Promise<import("mongoose").Document<unknown, {}, Cars> & Cars & {
         _id: import("mongoose").Types.ObjectId;
     }>;
 }

@@ -14,26 +14,26 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CarsController = void 0;
 const common_1 = require("@nestjs/common");
-const cars_service_1 = require("../services/cars.service");
+const createCar_1 = require("../DTOS/cars/createCar");
+const cars_1 = require("../services/cars");
 let CarsController = class CarsController {
     constructor(carsService) {
         this.carsService = carsService;
     }
-    findAll(request) {
-        console.log(request);
-        return this.carsService.getCars();
+    createCar(createCarDto) {
+        return this.carsService.createCar(createCarDto);
     }
 };
 exports.CarsController = CarsController;
 __decorate([
-    (0, common_1.Get)(),
-    __param(0, (0, common_1.Req)()),
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", String)
-], CarsController.prototype, "findAll", null);
+    __metadata("design:paramtypes", [createCar_1.CreateCarDTO]),
+    __metadata("design:returntype", void 0)
+], CarsController.prototype, "createCar", null);
 exports.CarsController = CarsController = __decorate([
     (0, common_1.Controller)("cars"),
-    __metadata("design:paramtypes", [cars_service_1.CarsService])
+    __metadata("design:paramtypes", [cars_1.CarsService])
 ], CarsController);
 //# sourceMappingURL=cars.controller.js.map

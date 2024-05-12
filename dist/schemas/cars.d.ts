@@ -23,12 +23,13 @@
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
-import { CreateCarDTO } from "src/DTOS/cars/createCar";
-import { CarsService } from "src/services/cars";
-export declare class CarsController {
-    private carsService;
-    constructor(carsService: CarsService);
-    createCar(createCarDto: CreateCarDTO): Promise<import("mongoose").Document<unknown, {}, import("../schemas/cars").Cars> & import("../schemas/cars").Cars & {
-        _id: import("mongoose").Types.ObjectId;
-    }>;
+export declare class Cars {
+    name: string;
+    year: string;
+    model: string;
 }
+export declare const CarsSchema: import("mongoose").Schema<Cars, import("mongoose").Model<Cars, any, any, any, import("mongoose").Document<unknown, any, Cars> & Cars & {
+    _id: import("mongoose").Types.ObjectId;
+}, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, Cars, import("mongoose").Document<unknown, {}, import("mongoose").FlatRecord<Cars>> & import("mongoose").FlatRecord<Cars> & {
+    _id: import("mongoose").Types.ObjectId;
+}>;

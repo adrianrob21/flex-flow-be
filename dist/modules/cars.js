@@ -6,21 +6,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppModule = void 0;
+exports.CarsModule = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
-const cars_1 = require("./modules/cars");
-let AppModule = class AppModule {
+const cars_controller_1 = require("../controllers/cars.controller");
+const cars_1 = require("../schemas/cars");
+const cars_2 = require("../services/cars");
+let CarsModule = class CarsModule {
 };
-exports.AppModule = AppModule;
-exports.AppModule = AppModule = __decorate([
+exports.CarsModule = CarsModule;
+exports.CarsModule = CarsModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            mongoose_1.MongooseModule.forRoot("mongodb+srv://adirobadi03:indxvTWIaQob04jl@flexflowstaging.axkoshe.mongodb.net/flexFlowStaging?retryWrites=true&w=majority&appName=flexFlowStaging"),
-            cars_1.CarsModule,
+            mongoose_1.MongooseModule.forFeature([
+                {
+                    name: cars_1.Cars.name,
+                    schema: cars_1.CarsSchema,
+                },
+            ]),
         ],
-        controllers: [],
-        providers: [],
+        controllers: [cars_controller_1.CarsController],
+        providers: [cars_2.CarsService],
     })
-], AppModule);
-//# sourceMappingURL=app.module.js.map
+], CarsModule);
+//# sourceMappingURL=cars.js.map
