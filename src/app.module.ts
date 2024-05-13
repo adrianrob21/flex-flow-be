@@ -1,17 +1,20 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
-import { CarsService } from "./services/cars";
-import { CarsController } from "./controllers/cars.controller";
-import { CarsModule } from "./modules/cars";
+
+import { AppService } from "./app.service";
+import { AuthModule } from "./auth/auth.module";
+import { UserModule } from "./user/user.module";
+import { AppController } from "./app.controller";
 
 @Module({
   imports: [
     MongooseModule.forRoot(
       "mongodb+srv://adirobadi03:indxvTWIaQob04jl@flexflowstaging.axkoshe.mongodb.net/flexFlowStaging?retryWrites=true&w=majority&appName=flexFlowStaging"
     ),
-    CarsModule,
+    UserModule,
+    AuthModule,
   ],
-  controllers: [],
-  providers: [],
+  providers: [AppService],
+  controllers: [AppController],
 })
 export class AppModule {}
