@@ -70,6 +70,8 @@ export class AuthService {
       hashedPassword
     );
 
-    return this.userService._getUserDetails(newUser);
+    const jwt = await this.jwtService.signAsync({ newUser });
+
+    return { user: this.userService._getUserDetails(newUser), token: jwt };
   }
 }
