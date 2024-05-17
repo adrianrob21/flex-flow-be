@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { UserService } from "src/user/user.service";
 
 import * as bycript from "bcrypt";
@@ -36,7 +36,12 @@ export class AuthService {
       user.password
     );
 
-    if (!doesThePasswordMatch) return null;
+    if (!doesThePasswordMatch) {
+      throw new HttpException(
+        { type: "invalidCredentials" },
+        HttpStatus.UNAUTHORIZED
+      );
+    }
 
     return this.userService._getUserDetails(user);
   }
@@ -48,7 +53,12 @@ export class AuthService {
 
     const user = await this.validateUser(email, password);
 
-    if (!user) return null;
+    if (!user) {
+      throw new HttpException(
+        { type: "invalidCredentials" },
+        HttpStatus.UNAUTHORIZED
+      );
+    }
 
     const jwt = await this.jwtService.signAsync({ user });
 
@@ -60,7 +70,9 @@ export class AuthService {
 
     const existingUser = await this.userService.findByEmail(email);
 
-    if (existingUser) return "Email already taken";
+    if (existingUser) {
+      throw new HttpException({ type: "emailTaken" }, HttpStatus.CONFLICT);
+    }
 
     const hashedPassword = await this.hasPassword(password);
 

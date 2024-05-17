@@ -31,26 +31,30 @@ let AuthService = class AuthService {
         if (!doesUserExist)
             return null;
         const doesThePasswordMatch = await this.doesThePasswordMatch(password, user.password);
-        if (!doesThePasswordMatch)
-            return null;
+        if (!doesThePasswordMatch) {
+            throw new common_1.HttpException({ type: "invalidCredentials" }, common_1.HttpStatus.UNAUTHORIZED);
+        }
         return this.userService._getUserDetails(user);
     }
     async login(existingUser) {
         const { email, password } = existingUser;
         const user = await this.validateUser(email, password);
-        if (!user)
-            return null;
+        if (!user) {
+            throw new common_1.HttpException({ type: "invalidCredentials" }, common_1.HttpStatus.UNAUTHORIZED);
+        }
         const jwt = await this.jwtService.signAsync({ user });
         return { token: jwt };
     }
     async register(user) {
         const { fullName, email, password } = user;
         const existingUser = await this.userService.findByEmail(email);
-        if (existingUser)
-            return "Email already taken";
+        if (existingUser) {
+            throw new common_1.HttpException({ type: "emailTaken" }, common_1.HttpStatus.CONFLICT);
+        }
         const hashedPassword = await this.hasPassword(password);
         const newUser = await this.userService.createUser(fullName, email, hashedPassword);
-        return this.userService._getUserDetails(newUser);
+        const jwt = await this.jwtService.signAsync({ newUser });
+        return { user: this.userService._getUserDetails(newUser), token: jwt };
     }
 };
 exports.AuthService = AuthService;
