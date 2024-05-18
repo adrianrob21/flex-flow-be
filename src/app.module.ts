@@ -5,6 +5,7 @@ import { AppService } from "./app.service";
 import { AuthModule } from "./auth/auth.module";
 import { UserModule } from "./user/user.module";
 import { AppController } from "./app.controller";
+import { QuotesModule } from "./quotes/quotes.module";
 import { WorkoutModule } from "./workout/workout.module";
 
 @Module({
@@ -15,6 +16,7 @@ import { WorkoutModule } from "./workout/workout.module";
     UserModule,
     AuthModule,
     WorkoutModule,
+    QuotesModule,
   ],
   providers: [AppService],
   controllers: [AppController],
