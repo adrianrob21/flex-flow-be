@@ -39,11 +39,17 @@ let AuthService = class AuthService {
     async login(existingUser) {
         const { email, password } = existingUser;
         const user = await this.validateUser(email, password);
+        const userDoc = await this.userService.findByEmail(email);
         if (!user) {
             throw new common_1.HttpException({ type: "invalidCredentials" }, common_1.HttpStatus.UNAUTHORIZED);
         }
         const jwt = await this.jwtService.signAsync({ user });
-        return { token: jwt };
+        const newUserDetails = {
+            id: userDoc._id,
+            fullName: userDoc.fullName,
+            email: userDoc.fullName,
+        };
+        return { token: jwt, user: newUserDetails };
     }
     async register(user) {
         const { fullName, email, password } = user;

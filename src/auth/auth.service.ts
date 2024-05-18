@@ -6,6 +6,7 @@ import { NewUserDTO } from "src/user/dtos/new-user.dto";
 import { UserDetails } from "src/user/user-details.interface";
 import { ExistingUserDTO } from "src/user/dtos/existing-user.dto";
 import { JwtService } from "@nestjs/jwt";
+import { UserDocument } from "src/user/user.schema";
 
 @Injectable()
 export class AuthService {
@@ -46,12 +47,11 @@ export class AuthService {
     return this.userService._getUserDetails(user);
   }
 
-  async login(
-    existingUser: ExistingUserDTO
-  ): Promise<{ token: string } | null> {
+  async login(existingUser: ExistingUserDTO): Promise<UserDetails | any> {
     const { email, password } = existingUser;
 
     const user = await this.validateUser(email, password);
+    const userDoc: UserDocument = await this.userService.findByEmail(email);
 
     if (!user) {
       throw new HttpException(
@@ -62,7 +62,13 @@ export class AuthService {
 
     const jwt = await this.jwtService.signAsync({ user });
 
-    return { token: jwt };
+    const newUserDetails = {
+      id: userDoc._id,
+      fullName: userDoc.fullName,
+      email: userDoc.fullName,
+    };
+
+    return { token: jwt, user: newUserDetails };
   }
 
   async register(user: Readonly<NewUserDTO>): Promise<UserDetails | any> {

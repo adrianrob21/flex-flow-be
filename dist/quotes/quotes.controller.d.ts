@@ -7,6 +7,6 @@ export declare class QuotesController {
     createQuote(body: NewQuoteDTO): Promise<QuoteDetailsInterface> | null;
     deleteQuote(id: string): Promise<{
         message: string;
-    }>;
-    getQuotes(userId: string): Promise<QuoteDetailsInterface[]>;
+    } | null>;
+    getQuotes(userId: string): Promise<QuoteDetailsInterface[] | null>;
 }

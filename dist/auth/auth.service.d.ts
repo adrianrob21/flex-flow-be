@@ -10,8 +10,6 @@ export declare class AuthService {
     hasPassword(password: string): Promise<string>;
     doesThePasswordMatch(password: string, hashedPassword: string): Promise<boolean>;
     validateUser(email: string, password: string): Promise<UserDetails>;
-    login(existingUser: ExistingUserDTO): Promise<{
-        token: string;
-    } | null>;
+    login(existingUser: ExistingUserDTO): Promise<UserDetails | any>;
     register(user: Readonly<NewUserDTO>): Promise<UserDetails | any>;
 }

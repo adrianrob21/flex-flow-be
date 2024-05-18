@@ -10,7 +10,6 @@ import {
 import { NewQuoteDTO } from "./dtos/new-quote.dto";
 import { QuotesService } from "./quotes.service";
 import { QuoteDetailsInterface } from "./quote-details.interface";
-import { Response } from "express";
 
 @Controller("quotes")
 export class QuotesController {
