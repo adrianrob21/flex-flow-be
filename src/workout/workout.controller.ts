@@ -14,13 +14,15 @@ export class WorkoutController {
   @Post()
   createWorkout(
     @Body() workout: NewWorkoutDTO
-  ): Promise<WorkoutDetails> | null {
+  ): Promise<WorkoutDetails | null> {
     return this.workoutService.createWorkout(workout);
   }
 
   @UseGuards(JwtGuard)
   @Get()
-  getWorkouts(@Query("userId") userId: string): Promise<WorkoutDetails[]> {
+  getWorkouts(
+    @Query("userId") userId: string
+  ): Promise<WorkoutDetails[] | null> {
     return this.workoutService.getWorkouts(userId);
   }
 }

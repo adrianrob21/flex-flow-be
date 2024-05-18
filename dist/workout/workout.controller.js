@@ -16,7 +16,6 @@ exports.WorkoutController = void 0;
 const common_1 = require("@nestjs/common");
 const workout_service_1 = require("./workout.service");
 const new_workout_dto_1 = require("./dtos/new-workout.dto");
-const jwt_guard_1 = require("../auth/guards/jwt.guard");
 let WorkoutController = class WorkoutController {
     constructor(workoutService) {
         this.workoutService = workoutService;
@@ -30,7 +29,6 @@ let WorkoutController = class WorkoutController {
 };
 exports.WorkoutController = WorkoutController;
 __decorate([
-    (0, common_1.UseGuards)(jwt_guard_1.JwtGuard),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -38,7 +36,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], WorkoutController.prototype, "createWorkout", null);
 __decorate([
-    (0, common_1.UseGuards)(jwt_guard_1.JwtGuard),
     (0, common_1.Get)(),
     __param(0, (0, common_1.Query)("userId")),
     __metadata("design:type", Function),

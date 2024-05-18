@@ -24,12 +24,14 @@ export class QuotesController {
   }
 
   @Delete(":id")
-  deleteQuote(@Param("id") id: string): Promise<{ message: string }> {
+  deleteQuote(@Param("id") id: string): Promise<{ message: string } | null> {
     return this.quotesService.deleteQuote(id);
   }
 
   @Get()
-  getQuotes(@Query("userId") userId: string): Promise<QuoteDetailsInterface[]> {
+  getQuotes(
+    @Query("userId") userId: string
+  ): Promise<QuoteDetailsInterface[] | null> {
     return this.quotesService.getQuotes(userId);
   }
 }
