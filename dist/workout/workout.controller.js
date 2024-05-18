@@ -23,6 +23,9 @@ let WorkoutController = class WorkoutController {
     createWorkout(workout) {
         return this.workoutService.createWorkout(workout);
     }
+    getWorkouts(userId) {
+        return this.workoutService.getWorkouts(userId);
+    }
 };
 exports.WorkoutController = WorkoutController;
 __decorate([
@@ -32,6 +35,13 @@ __decorate([
     __metadata("design:paramtypes", [new_workout_dto_1.NewWorkoutDTO]),
     __metadata("design:returntype", Promise)
 ], WorkoutController.prototype, "createWorkout", null);
+__decorate([
+    (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)("userId")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], WorkoutController.prototype, "getWorkouts", null);
 exports.WorkoutController = WorkoutController = __decorate([
     (0, common_1.Controller)("workouts"),
     __metadata("design:paramtypes", [workout_service_1.WorkoutService])

@@ -22,7 +22,7 @@
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
-import { WorkoutDocument } from "./workout.schema";
+import { Workout, WorkoutDocument } from "./workout.schema";
 import { Model } from "mongoose";
 import { NewWorkoutDTO } from "./dtos/new-workout.dto";
 import { WorkoutDetails } from "./workout-details.interface";
@@ -30,4 +30,7 @@ export declare class WorkoutService {
     private readonly workoutModel;
     constructor(workoutModel: Model<WorkoutDocument>);
     createWorkout(workout: Readonly<NewWorkoutDTO>): Promise<WorkoutDetails>;
+    getWorkouts(userId: string): Promise<(import("mongoose").Document<unknown, {}, WorkoutDocument> & Workout & import("mongoose").Document<any, any, any> & {
+        _id: import("mongoose").Types.ObjectId;
+    })[]>;
 }

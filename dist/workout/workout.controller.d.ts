@@ -4,5 +4,6 @@ import { NewWorkoutDTO } from "./dtos/new-workout.dto";
 export declare class WorkoutController {
     private workoutService;
     constructor(workoutService: WorkoutService);
-    createWorkout(workout: NewWorkoutDTO): Promise<WorkoutDetails>;
+    createWorkout(workout: NewWorkoutDTO): Promise<WorkoutDetails> | null;
+    getWorkouts(userId: string): Promise<WorkoutDetails[]>;
 }

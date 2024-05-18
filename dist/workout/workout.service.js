@@ -29,6 +29,9 @@ let WorkoutService = class WorkoutService {
         });
         return newWorkout.save();
     }
+    async getWorkouts(userId) {
+        return this.workoutModel.find({ userId }).exec();
+    }
 };
 exports.WorkoutService = WorkoutService;
 exports.WorkoutService = WorkoutService = __decorate([
