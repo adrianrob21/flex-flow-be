@@ -27,10 +27,12 @@ let WorkoutController = class WorkoutController {
     getWorkouts(userId) {
         return this.workoutService.getWorkouts(userId);
     }
+    deleteWorkout(id) {
+        return this.workoutService.deleteWorkout(id);
+    }
 };
 exports.WorkoutController = WorkoutController;
 __decorate([
-    (0, common_1.UseGuards)(jwt_guard_1.JwtGuard),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -45,6 +47,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], WorkoutController.prototype, "getWorkouts", null);
+__decorate([
+    (0, common_1.Delete)(":id"),
+    __param(0, (0, common_1.Param)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], WorkoutController.prototype, "deleteWorkout", null);
 exports.WorkoutController = WorkoutController = __decorate([
     (0, common_1.Controller)("workouts"),
     __metadata("design:paramtypes", [workout_service_1.WorkoutService])

@@ -32,6 +32,13 @@ let WorkoutService = class WorkoutService {
     async getWorkouts(userId) {
         return this.workoutModel.find({ userId }).exec();
     }
+    async deleteWorkout(id) {
+        const workoutToDelete = await this.workoutModel.findById(id).exec();
+        if (!workoutToDelete) {
+            throw new common_1.HttpException({ type: "notFound", resource: "workout" }, common_1.HttpStatus.NOT_FOUND);
+        }
+        return workoutToDelete.deleteOne();
+    }
 };
 exports.WorkoutService = WorkoutService;
 exports.WorkoutService = WorkoutService = __decorate([

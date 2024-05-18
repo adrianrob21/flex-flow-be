@@ -31,7 +31,10 @@ export class QuotesService {
     const quote = await this.quoteModel.findById(id).exec();
 
     if (!quote) {
-      throw new HttpException({ type: "quoteNotFound" }, HttpStatus.NOT_FOUND);
+      throw new HttpException(
+        { type: "notFound", resource: "quote" },
+        HttpStatus.NOT_FOUND
+      );
     }
 
     return quote.deleteOne();

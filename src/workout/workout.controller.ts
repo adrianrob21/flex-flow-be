@@ -1,4 +1,13 @@
-import { Body, Controller, Post, Get, Query, UseGuards } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Post,
+  Get,
+  Query,
+  UseGuards,
+  Delete,
+  Param,
+} from "@nestjs/common";
 import { WorkoutService } from "./workout.service";
 
 import { WorkoutDetails } from "./workout-details.interface";
@@ -24,5 +33,11 @@ export class WorkoutController {
     @Query("userId") userId: string
   ): Promise<WorkoutDetails[] | null> {
     return this.workoutService.getWorkouts(userId);
+  }
+
+  @UseGuards(JwtGuard)
+  @Delete(":id")
+  deleteWorkout(@Param("id") id: string) {
+    return this.workoutService.deleteWorkout(id);
   }
 }

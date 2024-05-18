@@ -6,4 +6,5 @@ export declare class WorkoutController {
     constructor(workoutService: WorkoutService);
     createWorkout(workout: NewWorkoutDTO): Promise<WorkoutDetails | null>;
     getWorkouts(userId: string): Promise<WorkoutDetails[] | null>;
+    deleteWorkout(id: string): Promise<any>;
 }

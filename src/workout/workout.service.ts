@@ -1,10 +1,9 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, HttpException, HttpStatus } from "@nestjs/common";
 import { Workout, WorkoutDocument } from "./workout.schema";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { NewWorkoutDTO } from "./dtos/new-workout.dto";
 import { WorkoutDetails } from "./workout-details.interface";
-import { WorkoutsDTO } from "./dtos/workouts.dto";
 
 @Injectable()
 export class WorkoutService {
@@ -27,5 +26,18 @@ export class WorkoutService {
 
   async getWorkouts(userId: string) {
     return this.workoutModel.find({ userId }).exec();
+  }
+
+  async deleteWorkout(id: string): Promise<any> {
+    const workoutToDelete = await this.workoutModel.findById(id).exec();
+
+    if (!workoutToDelete) {
+      throw new HttpException(
+        { type: "notFound", resource: "workout" },
+        HttpStatus.NOT_FOUND
+      );
+    }
+
+    return workoutToDelete.deleteOne();
   }
 }

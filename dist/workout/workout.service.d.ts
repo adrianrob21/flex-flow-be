@@ -33,4 +33,5 @@ export declare class WorkoutService {
     getWorkouts(userId: string): Promise<(import("mongoose").Document<unknown, {}, WorkoutDocument> & Workout & import("mongoose").Document<any, any, any> & {
         _id: import("mongoose").Types.ObjectId;
     })[]>;
+    deleteWorkout(id: string): Promise<any>;
 }

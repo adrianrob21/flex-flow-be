@@ -34,7 +34,7 @@ let QuotesService = class QuotesService {
     async deleteQuote(id) {
         const quote = await this.quoteModel.findById(id).exec();
         if (!quote) {
-            throw new common_2.HttpException({ type: "quoteNotFound" }, common_2.HttpStatus.NOT_FOUND);
+            throw new common_2.HttpException({ type: "notFound", resource: "quote" }, common_2.HttpStatus.NOT_FOUND);
         }
         return quote.deleteOne();
     }
