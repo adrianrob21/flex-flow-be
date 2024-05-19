@@ -21,17 +21,18 @@ let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
     }
-    getUser(id) {
-        return this.userService.findById(id);
+    getUser(headers) {
+        const uid = headers["uid"];
+        return this.userService.findById(uid);
     }
 };
 exports.UserController = UserController;
 __decorate([
     (0, common_1.UseGuards)(jwt_guard_1.JwtGuard),
-    (0, common_2.Get)(":id"),
-    __param(0, (0, common_1.Param)("id")),
+    (0, common_2.Get)(),
+    __param(0, (0, common_2.Headers)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getUser", null);
 exports.UserController = UserController = __decorate([

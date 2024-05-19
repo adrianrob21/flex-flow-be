@@ -3,5 +3,5 @@ import { UserDetails } from "./user-details.interface";
 export declare class UserController {
     private userService;
     constructor(userService: UserService);
-    getUser(id: string): Promise<UserDetails>;
+    getUser(headers: Record<string, string>): Promise<UserDetails>;
 }

@@ -3,9 +3,9 @@ import {
   Post,
   Body,
   Delete,
+  Headers,
   Param,
   Get,
-  Query,
 } from "@nestjs/common";
 import { NewQuoteDTO } from "./dtos/new-quote.dto";
 import { QuotesService } from "./quotes.service";
@@ -17,9 +17,12 @@ export class QuotesController {
 
   @Post()
   createQuote(
-    @Body() body: NewQuoteDTO
+    @Body() body: NewQuoteDTO,
+    @Headers() headers: Record<string, string>
   ): Promise<QuoteDetailsInterface> | null {
-    return this.quotesService.createQuote(body);
+    const uid = headers["uid"];
+
+    return this.quotesService.createQuote({ ...body, userId: uid });
   }
 
   @Delete(":id")
@@ -29,8 +32,10 @@ export class QuotesController {
 
   @Get()
   getQuotes(
-    @Query("userId") userId: string
+    @Headers() headers: Record<string, string>
   ): Promise<QuoteDetailsInterface[] | null> {
+    const userId = headers["uid"];
+
     return this.quotesService.getQuotes(userId);
   }
 }

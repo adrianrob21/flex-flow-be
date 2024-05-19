@@ -20,13 +20,15 @@ let QuotesController = class QuotesController {
     constructor(quotesService) {
         this.quotesService = quotesService;
     }
-    createQuote(body) {
-        return this.quotesService.createQuote(body);
+    createQuote(body, headers) {
+        const uid = headers["uid"];
+        return this.quotesService.createQuote({ ...body, userId: uid });
     }
     deleteQuote(id) {
         return this.quotesService.deleteQuote(id);
     }
-    getQuotes(userId) {
+    getQuotes(headers) {
+        const userId = headers["uid"];
         return this.quotesService.getQuotes(userId);
     }
 };
@@ -34,8 +36,9 @@ exports.QuotesController = QuotesController;
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Headers)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [new_quote_dto_1.NewQuoteDTO]),
+    __metadata("design:paramtypes", [new_quote_dto_1.NewQuoteDTO, Object]),
     __metadata("design:returntype", Promise)
 ], QuotesController.prototype, "createQuote", null);
 __decorate([
@@ -47,9 +50,9 @@ __decorate([
 ], QuotesController.prototype, "deleteQuote", null);
 __decorate([
     (0, common_1.Get)(),
-    __param(0, (0, common_1.Query)("userId")),
+    __param(0, (0, common_1.Headers)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], QuotesController.prototype, "getQuotes", null);
 exports.QuotesController = QuotesController = __decorate([

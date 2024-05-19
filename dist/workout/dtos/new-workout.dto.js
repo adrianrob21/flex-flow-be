@@ -18,8 +18,4 @@ __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
 ], NewWorkoutDTO.prototype, "name", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], NewWorkoutDTO.prototype, "userId", void 0);
 //# sourceMappingURL=new-workout.dto.js.map

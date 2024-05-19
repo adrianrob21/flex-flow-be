@@ -5,15 +5,16 @@ import {
   Get,
   Query,
   UseGuards,
+  Headers,
   Delete,
   Param,
+  Req,
+  Logger,
 } from "@nestjs/common";
 import { WorkoutService } from "./workout.service";
-
-import { WorkoutDetails } from "./workout-details.interface";
-
-import { NewWorkoutDTO } from "./dtos/new-workout.dto";
 import { JwtGuard } from "src/auth/guards/jwt.guard";
+import { NewWorkoutDTO } from "./dtos/new-workout.dto";
+import { WorkoutDetails } from "./workout-details.interface";
 
 @Controller("workouts")
 export class WorkoutController {
@@ -22,17 +23,21 @@ export class WorkoutController {
   @UseGuards(JwtGuard)
   @Post()
   createWorkout(
-    @Body() workout: NewWorkoutDTO
+    @Body() workout: NewWorkoutDTO,
+    @Headers() headers: Record<string, string>
   ): Promise<WorkoutDetails | null> {
-    return this.workoutService.createWorkout(workout);
+    const uid = headers["uid"];
+
+    return this.workoutService.createWorkout({ ...workout, userId: uid });
   }
 
   @UseGuards(JwtGuard)
   @Get()
   getWorkouts(
-    @Query("userId") userId: string
+    @Headers() headers: Record<string, string>
   ): Promise<WorkoutDetails[] | null> {
-    return this.workoutService.getWorkouts(userId);
+    const uid = headers["uid"];
+    return this.workoutService.getWorkouts(uid);
   }
 
   @UseGuards(JwtGuard)

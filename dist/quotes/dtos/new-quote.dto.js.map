@@ -1,1 +1,1 @@
-{"version":3,"file":"new-quote.dto.js","sourceRoot":"","sources":["../../../src/quotes/dtos/new-quote.dto.ts"],"names":[],"mappings":";;;AAAA,MAAa,WAAW;CAIvB;AAJD,kCAIC"}
+{"version":3,"file":"new-quote.dto.js","sourceRoot":"","sources":["../../../src/quotes/dtos/new-quote.dto.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA,6CAA8C;AAE9C,MAAa,WAAW;CAQvB;AARD,kCAQC;AANC;IADC,IAAA,qBAAW,GAAE;;0CACA;AAKd;IADC,IAAA,qBAAW,GAAE;;2CACC"}

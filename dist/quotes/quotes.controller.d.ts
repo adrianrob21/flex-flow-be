@@ -4,9 +4,9 @@ import { QuoteDetailsInterface } from "./quote-details.interface";
 export declare class QuotesController {
     private quotesService;
     constructor(quotesService: QuotesService);
-    createQuote(body: NewQuoteDTO): Promise<QuoteDetailsInterface> | null;
+    createQuote(body: NewQuoteDTO, headers: Record<string, string>): Promise<QuoteDetailsInterface> | null;
     deleteQuote(id: string): Promise<{
         message: string;
     } | null>;
-    getQuotes(userId: string): Promise<QuoteDetailsInterface[] | null>;
+    getQuotes(headers: Record<string, string>): Promise<QuoteDetailsInterface[] | null>;
 }

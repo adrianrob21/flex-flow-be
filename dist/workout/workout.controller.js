@@ -15,17 +15,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.WorkoutController = void 0;
 const common_1 = require("@nestjs/common");
 const workout_service_1 = require("./workout.service");
-const new_workout_dto_1 = require("./dtos/new-workout.dto");
 const jwt_guard_1 = require("../auth/guards/jwt.guard");
+const new_workout_dto_1 = require("./dtos/new-workout.dto");
 let WorkoutController = class WorkoutController {
     constructor(workoutService) {
         this.workoutService = workoutService;
     }
-    createWorkout(workout) {
-        return this.workoutService.createWorkout(workout);
+    createWorkout(workout, headers) {
+        const uid = headers["uid"];
+        return this.workoutService.createWorkout({ ...workout, userId: uid });
     }
-    getWorkouts(userId) {
-        return this.workoutService.getWorkouts(userId);
+    getWorkouts(headers) {
+        const uid = headers["uid"];
+        return this.workoutService.getWorkouts(uid);
     }
     deleteWorkout(id) {
         return this.workoutService.deleteWorkout(id);
@@ -33,21 +35,24 @@ let WorkoutController = class WorkoutController {
 };
 exports.WorkoutController = WorkoutController;
 __decorate([
+    (0, common_1.UseGuards)(jwt_guard_1.JwtGuard),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Headers)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [new_workout_dto_1.NewWorkoutDTO]),
+    __metadata("design:paramtypes", [new_workout_dto_1.NewWorkoutDTO, Object]),
     __metadata("design:returntype", Promise)
 ], WorkoutController.prototype, "createWorkout", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_guard_1.JwtGuard),
     (0, common_1.Get)(),
-    __param(0, (0, common_1.Query)("userId")),
+    __param(0, (0, common_1.Headers)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], WorkoutController.prototype, "getWorkouts", null);
 __decorate([
+    (0, common_1.UseGuards)(jwt_guard_1.JwtGuard),
     (0, common_1.Delete)(":id"),
     __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
